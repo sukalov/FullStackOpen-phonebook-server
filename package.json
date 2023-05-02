@@ -1,0 +1,17 @@
+{
+  "name": "phonebook-server",
+  "version": "1.0.0",
+  "description": "Node server for a phonebook react app. Following exercises from part3 of FullStackOpen course by Matti Luukkainen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "react",
+    "fullstackopen"
+  ],
+  "author": "Matvey Sokolovsky",
+  "license": "ISC"
+}
