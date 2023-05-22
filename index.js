@@ -74,5 +74,5 @@ const unknownEndpoint = (request, response) => {
   }
 app.use(unknownEndpoint)
 
-const PORT = process.env.PORT || 3001
-app.listen(PORT, () => console.log(`Express server running on port ${PORT}`))
+const PORT = process.env.PORT || 3000
+app.listen(PORT, '0.0.0.0', () => console.log(`Express server running on 0.0.0.0:${PORT}`))
