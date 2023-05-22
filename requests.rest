@@ -1,0 +1,28 @@
+//commands can be activated using VSCode REST Client extension
+
+### 1. get all persons
+GET http://localhost:3001/api/persons
+
+### 2. delete Wes Anderson
+DELETE http://localhost:3001/api/persons/5567546
+
+### 3. add Super Mario
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Super Mario 2",
+    "number": "231-00-01"
+}
+
+### 4. empty POST to cause error 400
+POST  http://localhost:3001/api/persons
+
+### 5. getting error 404
+GET http://localhost:3001/api/persons/foo
+
+### 6. get Dan Abramov 
+GET http://localhost:3001/api/persons/628376
+
+### 7. getting error 404 2
+GET http://localhost:3001/api/foo
