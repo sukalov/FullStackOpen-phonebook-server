@@ -1,12 +1,18 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import data from './db.json' assert { type: "json" };
+import logger from './logger.js';
+
+// i decided to use ES6 modules instead of CommonJS since node20 documentation
+// calls it the official standart for this version being fully supported and stable now
+// https://nodejs.org/api/esm.html
+
+let persons = data.persons;
 const app = express();
-let persons = require('./db.json').persons;
-console.log(persons)
 
 app.use(cors());
 app.use(express.json());
-
+app.use(logger);
 
 app.get('/info', (request, response) => {
     response.send(`<p>Phonebook has ${persons.length} contacts!</p>
@@ -22,7 +28,7 @@ app.get('/api/persons/:id', (request, response) => {
     if (result) {
         response.json(result)
     } else {
-        response.status(404).end()
+        response.status(404).send({ error: 'unknown endpoint' })
     }
 })
 
@@ -38,12 +44,22 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 app.post('/api/persons', (request, response) => {
-    const newContact = {
-        ...response.req.body,
-        id: Math.floor(Math.random() * 1000000)
+    if (!request.body.name || !request.body.number) {
+        response.status(400).json({ 
+            error: 'content missing' 
+          })
+    } else if (persons.find(p => p.name == request.body.name)) {
+        response.status(400).json({ 
+            error: 'name must be unique' 
+          })
+    } else {
+        const newContact = {
+            ...response.req.body,
+            id: Math.floor(Math.random() * 10000000)
+        }
+        persons = persons.concat(newContact)    
+        response.json(newContact)
     }
-    persons = persons.concat(newContact)    
-    response.json(newContact)
 })
 
 app.put('/api/persons/:id', (request, response) => {
@@ -54,10 +70,9 @@ app.put('/api/persons/:id', (request, response) => {
 })
 
 const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' })
+    response.status(404).send({ error: 'completely unknown endpoint' })
   }
-  
-  app.use(unknownEndpoint)
+app.use(unknownEndpoint)
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => console.log(`Express server running on port ${PORT}`))
