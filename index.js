@@ -10,6 +10,7 @@ import logger from './logger.js';
 let persons = data.persons;
 const app = express();
 
+app.use(express.static('build'))
 app.use(cors());
 app.use(express.json());
 app.use(logger);
@@ -74,5 +75,5 @@ const unknownEndpoint = (request, response) => {
   }
 app.use(unknownEndpoint)
 
-const PORT = process.env.PORT || 3000
-app.listen(PORT, '0.0.0.0', () => console.log(`Express server running on 0.0.0.0:${PORT}`))
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => console.log(`Express server running on ${PORT}`))
