@@ -39,3 +39,7 @@ Content-Type: application/json
 
 ### 9. LOCALHOST empty POST to cause error 400
 POST  http://localhost:3001/api/persons/
+
+### 9. LOCALHOST get info
+GET  http://localhost:3001/info
+

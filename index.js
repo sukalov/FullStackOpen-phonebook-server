@@ -16,8 +16,10 @@ app.use(express.json());
 app.use(logger);
 
 app.get('/info', (request, response) => {
-    response.send(`<p>Phonebook has ${persons.length} contacts!</p>
-    <p>${new Date()}</p>`)
+      Person.find({}).then(persons => {
+        response
+        .send(`<p>Phonebook has ${persons.length} contacts!</p><p>${new Date()}</p>`)
+  })
 })
 
 app.get('/api/persons', (request, response) => {
@@ -58,10 +60,12 @@ app.post('/api/persons', (request, response) => {
     }
 })
 
-app.put('/api/persons/:id', (request, response) => {
-    const index = persons.indexOf(persons.find(p => p.id === response.req.body.id))
-    persons[index] = response.req.body;
-    response.json(response.req.body)
+app.put('/api/persons/:id', (request, response, next) => {
+  Person.findByIdAndUpdate(request.params.id, request.body, { new: true })
+    .then(res => {
+      response.json(res)
+    })
+    .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
