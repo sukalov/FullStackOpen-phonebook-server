@@ -11,7 +11,7 @@ POST https://sukalov-phonebook-server.fly.dev/api/persons
 Content-Type: application/json
 
 {
-    "name": "Super Mario 2",
+    "name": "Super Mario",
     "number": "231-00-01"
 }
 
@@ -26,3 +26,16 @@ GET https://sukalov-phonebook-server.fly.dev/api/persons/628376
 
 ### 7. getting error 404 2
 GET https://sukalov-phonebook-server.fly.dev/api/foo
+
+
+### 8. LOCALHOST add Super Mario
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Super Mario",
+    "number": "231-00-01"
+}
+
+### 9. LOCALHOST empty POST to cause error 400
+POST  http://localhost:3001/api/persons/
