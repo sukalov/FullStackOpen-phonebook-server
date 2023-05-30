@@ -2,4 +2,4 @@
 
 frontend part: https://github.com/sukalov/FullStackOpen/tree/main/part2/phonebook
 
-deployed at: https://sukalov-phonebook-server.fly.dev
+deployed at: https://phonebook.sukalov.dev

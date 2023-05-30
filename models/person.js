@@ -4,7 +4,7 @@ dotenv.config();
 
 const url =process.env.MONGO_URL
 
-mongoose.set('strictQuery',false)
+mongoose.set('strictQuery', false)
 
 console.log('connecting to', url)
 mongoose.connect(url)
@@ -15,10 +15,23 @@ mongoose.connect(url)
     console.log('error connecting to MongoDB:', error.message)
   })
 
-const personSchema = new mongoose.Schema({
-    name: String,
-    number: String
-})
+  const personSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+        minLength: 3
+    },
+    number: {
+        type: String,
+        validate: {
+          validator: function(v) {
+            return /\d{3}-\d{3}-\d{4}/.test(v)
+          },
+          message: props => `${props.value} is not a valid phone number!`
+        },
+        required: [true, 'User phone number required']
+      }
+    });
 
 personSchema.set('toJSON', {
     transform: (document, returnedObject) => {

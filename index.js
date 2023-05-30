@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import data from './db.json' assert { type: "json" };
+// import data from './db.json' assert { type: "json" };
 import logger from './logger.js';
 import Person from './models/person.js';
 
@@ -47,7 +47,7 @@ app.delete('/api/persons/:id', (request, response) => {
     .catch(error => next(error))
 })
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
     if (!request.body.name || !request.body.number) {
         response.status(400).json({ 
             error: 'content missing' 
@@ -56,9 +56,9 @@ app.post('/api/persons', (request, response) => {
         const person = new Person({ ...response.req.body })
         person.save().then(res => {
             response.json(res)
-        })     
+        }).catch(err => next(err)) 
     }
-})
+});
 
 app.put('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndUpdate(request.params.id, request.body, { new: true })
@@ -66,7 +66,7 @@ app.put('/api/persons/:id', (request, response, next) => {
       response.json(res)
     })
     .catch(error => next(error))
-})
+});
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'completely unknown endpoint' })
@@ -77,9 +77,11 @@ const errorHandler = (error, request, response, next) => {
     console.error(error.message)
     if (error.name === 'CastError') {
       return response.status(400).send({ error: 'malformatted id' })
-    } 
+    } else if (error.name === 'ValidationError') {
+      return response.status(400).json({ error: error.message })
     next(error)
-  }
+  }}
+  
 app.use(errorHandler)
 
 const PORT = process.env.PORT || 3001
