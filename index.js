@@ -40,9 +40,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(res => {
-      res.status(204).send({ 204: 'no content' })
-    })
+    .then(response.status(204).send({ 204: 'no content' }))
     .catch(error => next(error))
 })
 
