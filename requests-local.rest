@@ -1,0 +1,44 @@
+//commands can be activated using VSCode REST Client extension
+
+### 1. get all persons
+GET http://localhost:3001/api/persons
+
+
+### 3. add Super Mario
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "Super Mario",
+    "number": "231-00-01"
+}
+
+### update with malformated data
+PUT http://localhost:3001/api/persons/64767157a65ec483d2b0c2f5
+Content-Type: application/json
+
+{
+    "name": "Da",
+    "number": "231-00-00"
+}
+
+### update with Dan Abramov with GOOD data
+PUT http://localhost:3001/api/persons/64767157a65ec483d2b0c2f5
+Content-Type: application/json
+
+{
+    "name": "Dan Abramov",
+    "number": "231-090-0109"
+}
+
+### empty POST to cause error 400
+POST  http://localhost:3001/api/persons
+
+### getting error 404
+GET http://localhost:3001/api/persons/foo
+
+### get Dan Abramov 
+GET http://localhost:3001/api/persons/64767157a65ec483d2b0c2f5
+
+### getting error 404 2
+GET http://localhost:3001/api/foo
