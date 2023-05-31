@@ -11,7 +11,8 @@
     "build:ui": "rm -rf build && cd ../FullStackOpen/part2/phonebook && npm run build && cp -r build ../../../FullStackOpen-phonebook-server",
     "deploy": "fly deploy",
     "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs"
+    "logs:prod": "fly logs",
+    "lint": "eslint ."
   },
   "keywords": [
     "node",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.2.7",
+    "eslint": "^8.41.0",
     "nodemon": "^2.0.22"
   }
 }

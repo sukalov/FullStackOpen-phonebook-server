@@ -1,0 +1,35 @@
+//commands can be activated using VSCode REST Client extension
+
+### 1. get all persons
+GET https://phonebook.sukalov.dev/api/persons
+
+
+### 3. add Super Mario
+POST https://phonebook.sukalov.dev/api/persons
+Content-Type: application/json
+
+{
+    "name": "Super Mario",
+    "number": "231-00-01"
+}
+
+### update with malformated data
+PUT https://phonebook.sukalov.dev/api/persons/64767157a65ec483d2b0c2f5
+Content-Type: application/json
+
+{
+    "name": "Super Mario",
+    "number": "231-00-01"
+}
+
+### empty POST to cause error 400
+POST  https://phonebook.sukalov.dev/api/persons
+
+### getting error 404
+GET https://phonebook.sukalov.dev/api/persons/foo
+
+### get Dan Abramov 
+GET https://phonebook.sukalov.dev/api/persons/64767157a65ec483d2b0c2f5
+
+### getting error 404 2
+GET https://phonebook.sukalov.dev/api/foo
