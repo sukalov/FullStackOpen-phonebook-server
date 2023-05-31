@@ -4,13 +4,13 @@
 GET https://phonebook.sukalov.dev/api/persons
 
 
-### 3. add Super Mario
+### 3. add Super Mario BAD request
 POST https://phonebook.sukalov.dev/api/persons
 Content-Type: application/json
 
 {
     "name": "Super Mario",
-    "number": "231-00-01"
+    "number": "231-000-0109"
 }
 
 ### update with malformated data

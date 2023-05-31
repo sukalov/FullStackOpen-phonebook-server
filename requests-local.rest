@@ -4,7 +4,7 @@
 GET http://localhost:3001/api/persons
 
 
-### 3. add Super Mario
+### 3. add Super Mario with bad number
 POST http://localhost:3001/api/persons
 Content-Type: application/json
 
@@ -13,7 +13,7 @@ Content-Type: application/json
     "number": "231-00-01"
 }
 
-### update with malformated data
+### update Dan with malformated data
 PUT http://localhost:3001/api/persons/64767157a65ec483d2b0c2f5
 Content-Type: application/json
 

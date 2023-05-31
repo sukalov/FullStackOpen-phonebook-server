@@ -66,16 +66,18 @@ app.put('/api/persons/:id', (request, response, next) => {
 })
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'completely unknown endpoint' })
+  response.status(404).json({ error: 'completely unknown endpoint' })
 }
 app.use(unknownEndpoint)
 
-const errorHandler = (error, request, response) => {
-  console.error(error.message)
+const errorHandler = (error, request, response, next) => {
+  console.error('=====', error)
   if (error.name === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' })
+    return response.status(400).json({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
+  } else {
+    next(error)
   }}
 
 app.use(errorHandler)
